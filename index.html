@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+    <link rel="shortcut icon" type="image/png" href="./img/icon.png" />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
@@ -31,7 +31,6 @@
   <body>
     <div class="sidebar">
       <img src="./img/logo.png" alt="Logo" class="logo" />
-
       <ul class="workouts">
         <form class="form hidden">
           <div class="form__row">
@@ -120,14 +119,25 @@
 
       <p class="copyright">
         &copy; Copyright by
-        <a
-          class="twitter-link"
-          target="_blank"
-          href="https://twitter.com/jonasschmedtman"
-          >Mohammed Kharoda</a
-        >. Use for learning or your portfolio. Don't use to teach. Don't claim
-        as your own.
+        <a>Mohammed Kharoda</a>. Use for learning or your portfolio. Don't use
+        to teach. Don't claim as your own.
       </p>
+      <div class="mapty_model">
+        <button class="show-modal">How It Work ?</button>
+        <div class="modal hidden">
+          <button id="close" class="close-modal">Close me</button>
+          <h1>Track Your Fitness 💪🏼</h1>
+          <p>
+            <ol class="breadcrumb">
+              <li> Click On the Map and the Side Form Will Appear 📑</li>
+              <li> After Fill the form it is being divide into 2 Part "Running" and "Cycling" 🤘🏻</li>
+              <li> Once Complete Hit Enter and It will Render the Workout 📌 </li>
+              <li> You can See the List of the workout and Tap on it to go that specific Workout 🥳</li>
+            </ol>
+          </p>
+        </div>
+        <div class="overlay hidden"></div>
+      </div>
     </div>
 
     <div id="map"></div>

@@ -1,21 +1,21 @@
-'use strict';
+"use strict";
 
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const form = document.querySelector('.form');
-const containerWorkouts = document.querySelector('.workouts');
-const inputType = document.querySelector('.form__input--type');
-const inputDistance = document.querySelector('.form__input--distance');
-const inputDuration = document.querySelector('.form__input--duration');
-const inputCadence = document.querySelector('.form__input--cadence');
-const inputElevation = document.querySelector('.form__input--elevation');
+const form = document.querySelector(".form");
+const containerWorkouts = document.querySelector(".workouts");
+const inputType = document.querySelector(".form__input--type");
+const inputDistance = document.querySelector(".form__input--distance");
+const inputDuration = document.querySelector(".form__input--duration");
+const inputCadence = document.querySelector(".form__input--cadence");
+const inputElevation = document.querySelector(".form__input--elevation");
 
 //=============================== Workout Classes ======================================
 
 class WorkOut {
   date = new Date();
-  id = (Date.now() + '').slice(-10);
+  id = (Date.now() + "").slice(-10);
 
   constructor(coords, distance, duration) {
     this.coords = coords; //[lat,lng]
@@ -35,7 +35,7 @@ class WorkOut {
 
 // Child Classes
 class Running extends WorkOut {
-  type = 'running';
+  type = "running";
   constructor(coords, distance, duration, cadence) {
     super(coords, distance, duration);
     this.cadence = cadence;
@@ -50,7 +50,7 @@ class Running extends WorkOut {
 }
 
 class Cycling extends WorkOut {
-  type = 'cycling';
+  type = "cycling";
   constructor(coords, distance, duration, elevationGain) {
     super(coords, distance, duration);
     this.elevationGain = elevationGain;
@@ -78,9 +78,9 @@ class App {
     this._getLocalStorages();
 
     // Attaching the Event Handler
-    form.addEventListener('submit', this._newWorkout.bind(this));
-    inputType.addEventListener('change', this._toggleElevationField);
-    containerWorkouts.addEventListener('click', this._moveMarker.bind(this));
+    form.addEventListener("submit", this._newWorkout.bind(this));
+    inputType.addEventListener("change", this._toggleElevationField);
+    containerWorkouts.addEventListener("click", this._moveMarker.bind(this));
   }
 
   _getLocation() {
@@ -89,7 +89,7 @@ class App {
       navigator.geolocation.getCurrentPosition(
         this._loadMap.bind(this),
         function () {
-          alert('No able to access your position');
+          alert("No able to access your position");
         }
       );
     }
@@ -101,24 +101,24 @@ class App {
     const { longitude } = position.coords;
     const coords = [latitude, longitude];
 
-    this.#map = L.map('map').setView(coords, 15);
+    this.#map = L.map("map").setView(coords, 15);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+    L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.#map);
 
     // Handling the Click Events
-    this.#map.on('click', this._showForm.bind(this));
+    this.#map.on("click", this._showForm.bind(this));
 
-    this.#workouts.forEach(workout => {
+    this.#workouts.forEach((workout) => {
       this._renderMarkerWorkout(workout);
     });
   }
 
   _showForm(mapE) {
     this.#mapEvent = mapE;
-    form.classList.remove('hidden');
+    form.classList.remove("hidden");
     inputDistance.focus();
   }
 
@@ -128,24 +128,24 @@ class App {
       inputDistance.value =
       inputElevation.value =
       inputDuration.value =
-        '';
-    form.style.display = 'none';
-    form.classList.add('hidden');
+        "";
+    form.style.display = "none";
+    form.classList.add("hidden");
     setTimeout(() => {
-      (form.style.display = 'grid'), 1000;
+      (form.style.display = "grid"), 1000;
     });
   }
 
   _toggleElevationField() {
-    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+    inputElevation.closest(".form__row").classList.toggle("form__row--hidden");
+    inputCadence.closest(".form__row").classList.toggle("form__row--hidden");
   }
 
   _newWorkout(e) {
     // Number Must of finite Number and No Negative or Alphabet are Allowed
     const validInputs = (...inputs) =>
-      inputs.every(inp => Number.isFinite(inp));
-    const allPositive = (...inputs) => inputs.every(inp => inp > 0);
+      inputs.every((inp) => Number.isFinite(inp));
+    const allPositive = (...inputs) => inputs.every((inp) => inp > 0);
 
     e.preventDefault();
 
@@ -158,7 +158,7 @@ class App {
     let workout;
 
     // If workout running, create running object
-    if (type === 'running') {
+    if (type === "running") {
       const cadence = +inputCadence.value;
 
       // Check if data is valid
@@ -166,20 +166,20 @@ class App {
         !validInputs(distance, duration, cadence) ||
         !allPositive(distance, duration, cadence)
       )
-        return alert('Inputs have to be positive numbers!');
+        return alert("Inputs have to be positive numbers!");
       // Creating a Class of Running when called with Running Type
       workout = new Running([lat, lng], distance, duration, cadence);
     }
 
     // If workout cycling, create cycling object
-    if (type === 'cycling') {
+    if (type === "cycling") {
       const elevation = +inputElevation.value;
 
       if (
         !validInputs(distance, duration, elevation) ||
         !allPositive(distance, duration)
       )
-        return alert('Inputs have to be positive numbers!');
+        return alert("Inputs have to be positive numbers!");
       // Creating a Class of Cycling when called with Cycling Type
 
       workout = new Cycling([lat, lng], distance, duration, elevation);
@@ -217,7 +217,7 @@ class App {
         })
       )
       .setPopupContent(
-        `${workout.type === 'running' ? '🏃🏼‍♂️' : '🚴🏼'} ${workout.description}`
+        `${workout.type === "running" ? "🏃🏼‍♂️" : "🚴🏼"} ${workout.description}`
       )
       .openPopup();
   }
@@ -229,7 +229,7 @@ class App {
             <h2 class="workout__title">${workout.description}</h2>
             <div class="workout__details">
               <span class="workout__icon">${
-                workout.type === 'running' ? '🏃🏼‍♂️' : '🚴🏼'
+                workout.type === "running" ? "🏃🏼‍♂️" : "🚴🏼"
               }</span>
               <span class="workout__value">${workout.distance}</span>
               <span class="workout__unit">km</span>
@@ -241,7 +241,7 @@ class App {
             </div>`;
 
     // This Come to the Effect when the Running is being selected and than the Class is Being Update
-    if (workout.type === 'running') {
+    if (workout.type === "running") {
       html += `
               <div class="workout__details">
             <span class="workout__icon">⚡️</span>
@@ -257,7 +257,7 @@ class App {
     }
     // This Come to the Effect when the Cycling is being selected and than the Class is Being Update
 
-    if (workout.type === 'cycling') {
+    if (workout.type === "cycling") {
       html += `
           <div class="workout__details">
             <span class="workout__icon">⚡️</span>
@@ -273,16 +273,16 @@ class App {
     }
 
     // Adding the List just after Form that is why the "afterEnd" Method is being used.
-    form.insertAdjacentHTML('afterend', html);
+    form.insertAdjacentHTML("afterend", html);
   }
 
   _moveMarker(e) {
-    const workoutEl = e.target.closest('.workout');
+    const workoutEl = e.target.closest(".workout");
 
     if (!workoutEl) return;
 
     const workout = this.#workouts.find(
-      work => work.id === workoutEl.dataset.id
+      (work) => work.id === workoutEl.dataset.id
     );
 
     this.#map.setView(workout.coords, this.#mapZoomLevel, {
@@ -294,26 +294,56 @@ class App {
   }
 
   _setLocalStorage() {
-    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+    localStorage.setItem("workouts", JSON.stringify(this.#workouts));
   }
 
   _getLocalStorages() {
-    const data = JSON.parse(localStorage.getItem('workouts'));
+    const data = JSON.parse(localStorage.getItem("workouts"));
 
     if (!data) return;
 
     this.#workouts = data;
 
-    this.#workouts.forEach(workout => {
+    this.#workouts.forEach((workout) => {
       this._renderWorkout(workout);
     });
   }
 
   reset() {
-    localStorage.removeItem('workouts');
+    localStorage.removeItem("workouts");
     location.reload();
   }
 }
 
 // CallBak of OOPs
 const app = new App();
+
+// Model Window
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const btnCloseModal = document.querySelector(".close-modal");
+const btnsOpenModal = document.querySelectorAll(".show-modal");
+
+const openModal = function () {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+};
+
+const closeModal = function () {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+};
+
+for (let i = 0; i < btnsOpenModal.length; i++)
+  btnsOpenModal[i].addEventListener("click", openModal);
+
+btnCloseModal.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", function (e) {
+  // console.log(e.key);
+
+  if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+    closeModal();
+  }
+});
