@@ -11,7 +11,7 @@
     <br />
     <a href="#about-the-project"><strong>Explore the docs »</strong></a> 
     <br>
-    <a href="https://mapty-app-mohammedk.netlify.app/"><strong>View Demo »</strong>
+    <a href="https://mapty-mohammedkharoda.vercel.app/"><strong>View Demo »</strong>
     <br />
     <br />
   </p>
@@ -89,7 +89,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Project Link: [https://mapty-app-mohammedk.netlify.app/](https://github.com/mohammedkharoda/Mapty.git)
+Project Link: [https://mapty-mohammedkharoda.vercel.app/](https://github.com/mohammedkharoda/Mapty.git)
 
 <!-- ACKNOWLEDGEMENTS -->
 
